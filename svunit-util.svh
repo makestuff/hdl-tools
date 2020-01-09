@@ -18,6 +18,14 @@
 //
 `include "svunit_defines.svh"
 
+`define FATAL_IF(cond, msg) \
+  if (cond) begin \
+    $display(); \
+    $error("\033\133\061\155\033\133\063\061\155FATAL: %s\033\133\060\073\061\060\155", $sformatf msg); \
+    $display(); \
+    $stop(1); \
+  end
+
 svunit_pkg::svunit_testcase svunit_ut;
 localparam string name = NAME;
 
