@@ -65,7 +65,7 @@ ifeq ($(LIBNAME:tb-%=tb-),tb-)
     test: compile
 	@$(ECHO) "EXEC: <$@ loc=\"$(DIRNAME)\" type=\"test\"/>"
 	@echo "$(BOLD)Running tests in $(DIRNAME) using sim.do$(NORM)"
-	@vsim -c -do 'source sim.do; do_test 0'
+	@vsim -c -do 'source sim.do; do_test 0; finish'
 	@echo
 
     testgui: compile
