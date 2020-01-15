@@ -48,6 +48,7 @@ ifeq ($(LIBNAME:tb-%=tb-),tb-)
   ifeq ($(COVERAGE),1)
     VLOPTS += +cover
   endif
+  FINISH := "finish"
   WORKINFO := work/_info
   VLOG := vlog -nologo -sv -novopt -hazards -lint -pedanticerrors +define+SIMULATION $(VLOPTS) $(LIB_LIST) $(INC_LIST) +incdir+$(PROJ_HOME)/hdl-tools +incdir+$(PROJ_HOME)/hdl-tools/svunit
   VCOM := vcom -nologo -2008 -novopt $(VHOPTS)
@@ -65,7 +66,7 @@ ifeq ($(LIBNAME:tb-%=tb-),tb-)
     test: compile
 	@$(ECHO) "EXEC: <$@ loc=\"$(DIRNAME)\" type=\"test\"/>"
 	@echo "$(BOLD)Running tests in $(DIRNAME) using sim.do$(NORM)"
-	@vsim -c -do 'source sim.do; do_test 0; finish'
+	@vsim -c -do 'source sim.do; do_test 0; $(FINISH)'
 	@echo
 
     testgui: compile
@@ -74,7 +75,7 @@ ifeq ($(LIBNAME:tb-%=tb-),tb-)
     test: compile
 	@$(ECHO) "EXEC: <$@ loc=\"$(DIRNAME)\" type=\"test\"/>"
 	@echo "$(BOLD)Autorunning tests in $(DIRNAME)$(NORM)"
-	@vsim -c -do 'source $(PROJ_HOME)/hdl-tools/common.do; cli_run; finish'
+	@vsim -c -do 'source $(PROJ_HOME)/hdl-tools/common.do; cli_run; $(FINISH)'
 	@echo
   endif
 
