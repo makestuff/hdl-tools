@@ -66,9 +66,14 @@ proc cli_run {{opts ""}} {
 }
 
 proc finish {} {
+  set result [coverage attribute -name TESTSTATUS -concise]
   if {$::env(CONTINUE_ON_FAILURE) == 1} {
+    if {$result != 0} {
+      echo "Tests failed, but CONTINUE_ON_FAILURE was set, therefore creating \$PROJ_HOME/.testfail and continuing"
+      close [open "$::env(PROJ_HOME)/.testfail" w]
+    }
     exit -force -code 0
   } else {
-    exit -force -code [coverage attribute -name TESTSTATUS -concise]
+    exit -force -code $result
   }
 }
