@@ -16,8 +16,8 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-BOLD := $(shell tput bold; tput setaf 4)
-NORM := $(shell tput sgr0)
+BOLD := $(shell printf "\e[34;1m")
+NORM := $(shell printf "\e[0m")
 REALPATH := $(realpath .)
 LIBNAME := $(notdir $(REALPATH))
 DIRNAME := $(REALPATH:$(PROJ_HOME)%=\$$PROJ_HOME%)
@@ -50,7 +50,7 @@ ifeq ($(LIBNAME:tb-%=tb-),tb-)
   endif
   FINISH := "finish"
   WORKINFO := work/_info
-  VLOG := vlog -nologo -sv -novopt -hazards -lint -pedanticerrors +define+SIMULATION $(VLOPTS) $(LIB_LIST) $(INC_LIST) +incdir+$(PROJ_HOME)/hdl-tools +incdir+$(PROJ_HOME)/hdl-tools/svunit
+  VLOG := vlog -nologo -sv -novopt -hazards -lint -pedanticerrors +define+SIMULATION $(VLOPTS) $(LIB_LIST) $(INC_LIST) +incdir+$(PROJ_HOME)/hdl-tools +incdir+$(PROJ_HOME)/hdl-tools/svunit +incdir+$(PROJ_HOME)/ip
   VCOM := vcom -nologo -2008 -novopt $(VHOPTS)
   export TESTBENCH
   export CONTINUE_ON_FAILURE

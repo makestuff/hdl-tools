@@ -21,7 +21,7 @@
 `define FATAL_IF(cond, msg) \
   if (cond) begin \
     $display(); \
-    $error("\033\133\061\155\033\133\063\061\155FATAL: %s\033\133\060\073\061\060\155", $sformatf msg); \
+    $error("\033[31;1mFATAL: %s\033[0m", $sformatf msg); \
     $display(); \
     $stop(1); \
   end
@@ -40,7 +40,7 @@ initial begin
   svunit_ut.report();
   $display();
   if (svunit_ut.get_error_count() > 0) begin
-    $error($sformatf("\033\133\061\155\033\133\063\061\155%0d tests failed\033\133\060\073\061\060\155", svunit_ut.get_error_count()));
+    $error($sformatf("\033[31;1m%0d tests failed\033[0m", svunit_ut.get_error_count()));
     $display();
   end
   $stop();
