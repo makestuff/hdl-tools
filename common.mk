@@ -86,7 +86,7 @@ ifeq ($(LIBNAME:tb-%=tb-),tb-)
   $(WORKINFO):
 	@echo "$(BOLD)Preparing local work library for test directory $(DIRNAME)$(NORM)"
 	vlib work
-	vmap work_lib work
+	unset MODELSIM && vmap work_lib work
 	@echo
 
   modelsim.ini:
