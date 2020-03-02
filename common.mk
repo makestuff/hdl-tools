@@ -66,16 +66,16 @@ ifeq ($(LIBNAME:tb-%=tb-),tb-)
     test: compile
 	@$(ECHO) "EXEC: <$@ loc=\"$(DIRNAME)\" type=\"test\"/>"
 	@echo "$(BOLD)Running tests in $(DIRNAME) using sim.do$(NORM)"
-	@vsim -c -do 'source sim.do; do_test 0; $(FINISH)'
+	@unset MODELSIM && vsim -c -do 'source sim.do; do_test 0; $(FINISH)'
 	@echo
 
     testgui: compile
-	@vsim -do 'source sim.do; do_test 1'
+	@unset MODELSIM && vsim -do 'source sim.do; do_test 1'
   else
     test: compile
 	@$(ECHO) "EXEC: <$@ loc=\"$(DIRNAME)\" type=\"test\"/>"
 	@echo "$(BOLD)Autorunning tests in $(DIRNAME)$(NORM)"
-	@vsim -c -do 'source $(PROJ_HOME)/hdl-tools/common.do; cli_run; $(FINISH)'
+	@unset MODELSIM && vsim -c -do 'source $(PROJ_HOME)/hdl-tools/common.do; cli_run; $(FINISH)'
 	@echo
   endif
 
